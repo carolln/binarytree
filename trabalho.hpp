@@ -47,19 +47,19 @@ Node* createNode(int key, OrderedPair data) {
 
 Node * encontrarLugar(Node * pai, int chave) {
 
-    if (pai->left == NULL && pai ->right == NULL) { // se chegamos numa folha, vamos inserir a partir dela
+    if (pai->left == nullptr && pai ->right == nullptr) { // se chegamos numa folha, vamos inserir a partir dela
         return pai;
     }
 
     if (chave > pai->key) { 
-        if (pai->right != NULL) {
+        if (pai->right != nullptr) {
             return encontrarLugar(pai->right, chave);
         }
         return pai;
     }
 
     if (chave < pai->key) {
-        if (pai->left != NULL){
+        if (pai->left != nullptr){
             return encontrarLugar(pai->left, chave);
         }
     }
@@ -180,9 +180,9 @@ OrderedPair* search(Node* root, int key) {
 }
 
 
-Node * tanaarvore (Node * pai, int chave, Node * avo = NULL) { // retorna o nó com o valor que eu to procurando
+Node * tanaarvore (Node * pai, int chave, Node * avo = NULL) { // retorna o pai do nó com o valor que eu to procurando
     if (pai->key == chave) {
-        return avo;
+        return pai;
     }
 
     if (chave > pai->key) {
@@ -243,9 +243,13 @@ std::pair<Node *, Node *> findAnteante(Node * obj) {
 // funcoes acessorias à delecao
 
 // --- Função para remover um nodo ---
-Node* deleteNode(Node* root, int key) { // retorna um ponteiro pro pai?
+Node* deleteNode(Node* &backup, int key) { // retorna um ponteiro pro pai?
 
-    Node * eu = tanaarvore(root, key);
+    Node * root = backup;
+    
+    Node * eu = tanaarvore(root, key); // aqui eu to retornando o avo for some reason???
+
+    // checa se eh folha nehn
 
     if (eu == NULL) {
         if (root->key != key) {
@@ -261,6 +265,8 @@ Node* deleteNode(Node* root, int key) { // retorna um ponteiro pro pai?
     Node * goal = temp.second;
 
     Node * lastfilho = goal;
+
+    // o pai eh null!!!!!! caso for repetifo
 
     if (anteante == NULL) { // nao ha filhos a esquerda
         if (eu == root) {
@@ -278,7 +284,9 @@ Node* deleteNode(Node* root, int key) { // retorna um ponteiro pro pai?
         goal->right = eu->right;
 
         if (eu == root) {
-            root = goal;
+            backup = goal;
+            delete eu;
+            return backup;
         }
 
         else {
@@ -296,7 +304,7 @@ Node* deleteNode(Node* root, int key) { // retorna um ponteiro pro pai?
 
     else {
 
-        while (lastfilho->left != NULL) {
+        while (lastfilho->left != NULL) { // what am i doing here again
             lastfilho = lastfilho->left;
         }
 
@@ -305,15 +313,17 @@ Node* deleteNode(Node* root, int key) { // retorna um ponteiro pro pai?
 
         anteante->right = NULL;
 
-        if (eu == root) {
-            root = goal;
+        if (eu == root) { // to removendo a raiz!
+            backup = goal;
+            delete eu;
+            return backup;
         }
         else {
             if (pai->right == eu) {
                 pai->right = goal;
             }
-            else if (pai->right == eu) {
-                pai->right = goal;
+            else if (pai->left == eu) {
+                pai->left = goal;
             }
         }
     }
@@ -346,6 +356,8 @@ void print_tree (Node * root, string s = "\t↳", int a = 0) {
     else {
         cout << " - ( ROOT )";
     }
+
+    cout << "       / key = " << root->key;
     
     cout << "\n";
 

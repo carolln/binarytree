@@ -6,34 +6,72 @@ using namespace std;
 int main () {
 
 
-    OrderedPair par;
+    OrderedPair raiz;
 
-    par.first = 4;
-    par.second = 6;
+    raiz.first = 4;
+    raiz.second = 6;
 
-    Node * root = createNode(createKey(par), par);
+    Node * root = createNode(createKey(raiz), raiz);
 
-    OrderedPair outro;
+    OrderedPair trestres;
+    OrderedPair doisdois;
+    OrderedPair doistres;
+    OrderedPair quatroquatro;
+    OrderedPair setesete;
+    OrderedPair dezdez;
+    OrderedPair trezetreze;
 
-    outro.first = 10;
-    outro.second = 10;
+    trestres.first = 3;
+    trestres.second = 3;
 
-    insert(root, createKey(outro), outro);
+    doisdois.first = 2;
+    doisdois.second = 2;
 
-    OrderedPair outro2;
+    doistres.first = 2;
+    doistres.second = 3;
 
-    outro2.first = 4;
-    outro2.second = 4;
+    quatroquatro.first = 4;
+    quatroquatro.second = 4;
 
-    insert(root, createKey(outro2), outro2);
+    setesete.first = 7;
+    setesete.second = 7;
 
-    OrderedPair mais;
+    dezdez.first = 10;
+    dezdez.second = 10;
 
-    mais.first = 2;
-    mais.second = 3;
+    trezetreze.first = 13;
+    trezetreze.second = 13;
 
-    insert(root, createKey(mais), mais);
+    //print_tree(root);
+
+    insert(root, createKey(trestres), trestres);
+
+    //print_tree(root);
+
+
+    insert(root, createKey(doisdois), doisdois);
+
+    //print_tree(root);
+
+    insert(root, createKey(doistres), doistres);
+    insert(root, createKey(quatroquatro), quatroquatro);
+    insert(root, createKey(dezdez), dezdez);
+    insert(root, createKey(setesete), setesete);
+    insert(root, createKey(trezetreze), trezetreze);
 
     print_tree(root);
+
+    deleteNode(root, createKey(trestres));
+
+    print_tree(root);
+
+    deleteNode(root, createKey(raiz));
+
+    print_tree(root);
+
+    //deleteNode(root, createKey(trestres));
+
+
+    //print_tree(root);
 
 }
