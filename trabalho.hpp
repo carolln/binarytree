@@ -268,7 +268,26 @@ Node* deleteNode(Node* &backup, int key) { // retorna um ponteiro pro pai?
 
     // o pai eh null!!!!!! caso for repetifo
 
-    if (anteante == NULL) { // nao ha filhos a esquerda
+    if (eu->right == nullptr && eu->left == nullptr) { // eh uma folha
+        if (pai != nullptr) { // nao to terminando de remover a arvore
+            
+            if (pai->right == eu) {
+                pai->right = nullptr;
+            }
+            else if (pai->left == eu) {
+                pai->left = nullptr;
+            }
+
+        }
+
+        else {
+            backup = nullptr;
+        }
+
+        
+    }
+
+    else if (anteante == NULL) { // nao ha filhos a esquerda
         if (eu == root) {
             root = root->right;
         }
@@ -341,6 +360,10 @@ Node* deleteNode(Node* &backup, int key) { // retorna um ponteiro pro pai?
 
 void print_tree (Node * root, string s = "\t↳", int a = 0) {
 
+    if (a == 0) {
+        cout << ">>> imprimindo árvore...\n\n";
+
+    }
 
     //cout << s << " " << raiz->value;
     cout << "\n" << s << " ( " << root->data.first << ", " << root->data.second << " )";

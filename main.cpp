@@ -42,17 +42,11 @@ int main () {
     trezetreze.first = 13;
     trezetreze.second = 13;
 
-    //print_tree(root);
+
+    cout << ">>> testando a inserção...\n";
 
     insert(root, createKey(trestres), trestres);
-
-    //print_tree(root);
-
-
     insert(root, createKey(doisdois), doisdois);
-
-    //print_tree(root);
-
     insert(root, createKey(doistres), doistres);
     insert(root, createKey(quatroquatro), quatroquatro);
     insert(root, createKey(dezdez), dezdez);
@@ -60,14 +54,40 @@ int main () {
     insert(root, createKey(trezetreze), trezetreze);
 
     print_tree(root);
+    cout << "\n\n";
 
-    deleteNode(root, createKey(trestres));
+    cout << ">>> testando remoção...\n\n";
+
+    cout << "\t>>> removendo uma folha\n";
+
+    deleteNode(root, createKey(trezetreze)); // removendo folha
 
     print_tree(root);
+    cout << "\n\n";
 
-    deleteNode(root, createKey(raiz));
+    cout << "\t>>> removendo um node com apenas um filho à esquerda\n";
+
+    deleteNode(root, createKey(dezdez));
 
     print_tree(root);
+    cout << "\n\n";
+
+    cout << "\t>>> removendo um node com um antecessor (folha mais à direita de um filho à esquerda)\n";
+
+    deleteNode(root, createKey(trestres)); // removendo um nodo com antecessor
+
+    print_tree(root);
+    cout << "\n\n";
+
+
+
+    cout << "\t>>> removendo raiz\n";
+
+    deleteNode(root, createKey(raiz)); // removendo raiz
+
+    print_tree(root);
+    cout << "\n\n";
+
 
     //deleteNode(root, createKey(trestres));
 
