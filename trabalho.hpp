@@ -155,23 +155,30 @@ Node* insert(Node* root, int key, OrderedPair data) {
 
 // --- Função para buscar a informação de um nodo (sem remover o nodo) ---
 OrderedPair* search(Node* root, int key) {
+
+    OrderedPair nulo;
+    nulo.first = -1;
+    nulo.second = -1;
+    Node * backup = root;
     
     while (root->key != key) {
         if (key > root->key) {
-            if (root->right == nullptr) {
-                return &root->data;
+            if (root->right == nullptr) { // a key eh diferente e nao existe.... to retornando nulo
+                cout << "a chave passada não está presente na árvore. o par raiz será retornado o simbolocamente\n";
+                return &(backup->data);
             }
             root = root->right;
         }
 
         else if (key < root->key) {
             if (root->left == nullptr) {
-                return &root->data;
+                cout << "a chave passada não está presente na árvore. so par raiz erá retornado simbólicamente\n";
+                return &(backup->data);
             }
-            root = root->right;
+            root = root->left;
         }
 
-        else {
+        else { // eh igual
             return &root->data;
         }
     }
@@ -361,7 +368,7 @@ Node* deleteNode(Node* &backup, int key) { // retorna um ponteiro pro pai?
 void print_tree (Node * root, string s = "\t↳", int a = 0) {
 
     if (a == 0) {
-        cout << ">>> imprimindo árvore...\n\n";
+        cout << "\t>>> imprimindo árvore...\n\n";
 
     }
 
